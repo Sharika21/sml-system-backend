@@ -21,14 +21,14 @@ public class UserController {
 
     @PostMapping(path = "/save")
     public String saveUser(@RequestBody UserDTO userDTO) {
-   //     String id = userService.addUser(userDTO);
-       // return id;
-        return "";
+        String id = userService.addUser(userDTO);
+        System.out.println("Returned ID: " + id);
+        return id;
     }
 
-//    @PostMapping(path = "/login")
-//    public ResponseEntity<?> loginUser(@RequestBody LoginDTO loginDTO) {
-//        LoginResponse loginResponse = userService.loginUser(loginDTO);
-//        return ResponseEntity.ok(loginResponse);
-//    }
+    @PostMapping(path = "/login")
+    public ResponseEntity<?> loginUser(@RequestBody LoginDTO loginDTO) {
+        LoginResponse loginResponse = userService.loginUser(loginDTO);
+        return ResponseEntity.ok(loginResponse);
+    }
 }

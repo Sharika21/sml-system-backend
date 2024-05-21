@@ -36,4 +36,16 @@ public class LoginResponse {
                 ", status=" + status +
                 '}';
     }
+
+    public boolean isFail() {
+        return false;
+    }
+
+    public boolean isSuccess() {
+        return true;
+    }
+
+    public boolean isFound() {
+        return false;
+    }
 }

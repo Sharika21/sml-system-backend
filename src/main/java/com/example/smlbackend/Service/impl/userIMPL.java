@@ -36,7 +36,7 @@ public class userIMPL implements UserService {
 
         userRepo.save(user);
 
-        return user.getUsername();
+        return user.getEmail();
 
     }
 
@@ -66,7 +66,7 @@ public class userIMPL implements UserService {
                 return new LoginResponse("Password does not match", false);
             }
         } else {
-            return new LoginResponse("Email does not exists", false);
+            return new LoginResponse("Email does not exist", false);
         }
     }
 }

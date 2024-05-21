@@ -37,36 +37,53 @@ public class userIMPL implements UserService {
         userRepo.save(user);
 
         return user.getEmail();
-
     }
 
     @Override
-    public LoginResponse loginUser(LoginDTO loginDTO) {
-        String msg = "";
+//    public LoginResponse loginUser(LoginDTO loginDTO) {
+//        String msg = "";
+//
+//        String email = loginDTO.getEmail();
+//        System.out.println("Email to find: " + email);
+//
+//        User user1 = userRepo.findByEmail(loginDTO.getEmail());
+//        if (user1 != null) {
+//            String password = loginDTO.getPassword();
+//            String encodedPassword = user1.getPassword();
+//
+//            Boolean isPwdRight = passwordEncoder.matches(password, encodedPassword);
+//            System.out.println("Password matches: " + isPwdRight);
+//
+//            if (isPwdRight) {
+//                Optional<User> user = userRepo.findOneByEmailAndPassword(loginDTO.getEmail(), encodedPassword);
+//                    if (user.isPresent()) {
+//                        return new LoginResponse("Login success");
+//                    } else {
+//                        return new LoginResponse("Login failed");
+//                    }
+//            } else {
+//                return new LoginResponse("Password does not match");
+//            }
+//        } else {
+//            return new LoginResponse("Email does not exist");
+//        }
+//    }
 
+    public LoginResponse loginUser(LoginDTO loginDTO) {
         String email = loginDTO.getEmail();
         System.out.println("Email to find: " + email);
 
-        User user1 = userRepo.findByEmail(loginDTO.getEmail());
-        if (user1 != null) {
-            String password = loginDTO.getPassword();
-            String encodedPassword = user1.getPassword();
-
-            Boolean isPwdRight = passwordEncoder.matches(password, encodedPassword);
-            System.out.println("Password matches: " + isPwdRight);
-
-            if (isPwdRight) {
-                Optional<User> user = userRepo.findOneByEmailAndPassword(loginDTO.getEmail(), encodedPassword);
-                    if (user.isPresent()) {
-                        return new LoginResponse("Login success", true);
-                    } else {
-                        return new LoginResponse("Login failed", false);
-                    }
+        User user = userRepo.findByEmail(email);
+        if (user != null) {
+            if (passwordEncoder.matches(loginDTO.getPassword(), user.getPassword())) {
+                return new LoginResponse("Login success");
             } else {
-                return new LoginResponse("Password does not match", false);
+                return new LoginResponse("Password does not match");
             }
         } else {
-            return new LoginResponse("Email does not exist", false);
+            return new LoginResponse("Email does not exist");
         }
     }
+
+
 }

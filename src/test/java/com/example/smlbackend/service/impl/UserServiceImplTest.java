@@ -32,27 +32,46 @@ public class UserServiceImplTest {
     @InjectMocks
     private userIMPL userService;
 
-    @Test
-    public void testLoginUserSuccess() {
-        LoginDTO loginDTO = new LoginDTO();
-        loginDTO.setEmail("test@example.com");
-        loginDTO.setPassword("rawPassword");
-
-        User user = new User();
-        user.setEmail("test@example.com");
-        user.setPassword("rawPassword");
-
-//        String encodedPassword = passwordEncoder.encode("rawPassword");
-//        user.setPassword(encodedPassword);
-
-//        when(userRepo.findByEmail(loginDTO.getEmail())).thenReturn(user);
-        lenient().when(passwordEncoder.matches(loginDTO.getPassword(), user.getPassword())).thenReturn(true);
-
+//    @Test
+//    public void testLoginUserSuccess() {
+//        LoginDTO loginDTO = new LoginDTO();
+//        loginDTO.setEmail("sha@gmail.com");
+//        loginDTO.setPassword("Sha");
+//
+//        User user = new User();
+//        user.setEmail("sha@gmail.com");
+//        user.setPassword("Sha");
+//
+////        String encodedPassword = passwordEncoder.encode("rawPassword");
+////        user.setPassword(encodedPassword);
+//
+////        when(userRepo.findByEmail(loginDTO.getEmail())).thenReturn(user);
+//        lenient().when(passwordEncoder.matches(loginDTO.getPassword(), user.getPassword())).thenReturn(true);
+//
 //        LoginResponse response = userService.loginUser(loginDTO);
 //        assertTrue(response.isSuccess());
 //        assertEquals("Login success", response.getMessage());
-        assertEquals(user.getPassword(), loginDTO.getPassword());
+////        assertEquals(user.getPassword(), loginDTO.getPassword());
+//    }
+
+    @Test
+    public void testLoginUserSuccess() {
+        LoginDTO loginDTO = new LoginDTO();
+        loginDTO.setEmail("sha@gmail.com");
+        loginDTO.setPassword("Sha");
+
+        User user = new User();
+        user.setEmail("sha@gmail.com");
+        user.setPassword("Sha");
+
+        lenient().when(userRepo.findByEmail(loginDTO.getEmail())).thenReturn(user);
+        lenient().when(passwordEncoder.matches(loginDTO.getPassword(), user.getPassword())).thenReturn(true);
+
+        LoginResponse response = userService.loginUser(loginDTO);
+        assertTrue(response.isSuccess());
+        assertEquals("Login success", response.getMessage());
     }
+
 
 
     @Test

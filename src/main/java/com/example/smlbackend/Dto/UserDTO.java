@@ -1,7 +1,9 @@
 package com.example.smlbackend.Dto;
 
 import jakarta.persistence.Column;
+import lombok.Data;
 
+@Data
 public class UserDTO {
     private int userid;
     private String username;
